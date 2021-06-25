@@ -4,12 +4,17 @@
 (() => {
     // your code here
 
-    document.getElementById("run").addEventListener("click", () => {
+    document.getElementById("run").addEventListener("click", async () => {
 
         // using fetch with REST API
-        fetch('http://localhost:3000/heroes')
-            .then( (result)=> result.json() )
-            .then( (result) => console.log( result));   
+        try {
+            const result = await fetch('http://localhost:3000/heroes');
+            const heroes = await result.json();
+            console.log(heroes);
+        } catch (error) {
+            console.log(error);
+        }
+           
     });
 
 
