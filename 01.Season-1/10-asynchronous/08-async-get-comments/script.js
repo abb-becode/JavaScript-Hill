@@ -4,31 +4,35 @@
 (() => {
     // your code here
 
-    document.getElementById("run").addEventListener("click", () => {
+    document.getElementById("run").addEventListener("click", async () => {
 
-        // method using async await
-        let getPosts = async () =>  {
+        // method using async await  
+        getPosts = async () =>  {
             try {
-                let posts = await window.lib.getPosts();      
-                posts.forEach(element => {
-                    window.lib.getComments(element.id, (error, comments) => {
-                        try {
-                            element.comments = comments;
-                            console.log(element);
-                            //console.log(element.comments[0]);
-                        } catch {
-                            console.log("getComments => something was wrong", error);
-                        }
-                    }); 
-                    //console.log(element);
-                });
-            } 
-            catch (error) {
-                console.log("getPosts => something was wrong " + error);
-            }          
-        } 
+                // Awaiting window.lib.getPosts()
+                const response = await window.lib.getPosts();
+                return response;
+                //console.log(response);
+            } catch (error) {
+                console.log("getPosts => something went wrong " + error);
+            }
+        }
 
-        getPosts();    
+        setComments = async (data) =>  {
+            for ( let element of data) {
+                try {
+                    const comments = await window.lib.getComments(element.id);
+                    element.comments = comments;
+                    console.log(element);
+                    //console.log(element.comments[0]);
+                } catch (error) {
+                    console.log("setComments => something went wrong", error);
+                }
+            }
+        }
+
+        const posts = await getPosts();
+        setComments(posts);
 
     });
 
