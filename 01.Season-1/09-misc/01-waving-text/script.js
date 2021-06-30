@@ -5,9 +5,6 @@
 
     // your code here
     
-    window.onload = main;
-
-    function main() {
       var letterContainer = document.getElementById("target");
       var letters = letterContainer.innerText;
       letters = letters.split("");
@@ -21,7 +18,5 @@
         wrap.style.transform = "rotate("+-index+"deg)";
         letterContainer.appendChild(wrap);
       });
-
-    }
 
 })();
