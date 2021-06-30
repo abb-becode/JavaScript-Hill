@@ -4,5 +4,24 @@
 (() => {
 
     // your code here
+    
+    window.onload = main;
+
+    function main() {
+      var letterContainer = document.getElementById("target");
+      var letters = letterContainer.innerText;
+      letters = letters.split("");
+      letterContainer.innerText = "";
+
+      letters.forEach(function(letter, index) {
+        var wrap = document.createElement("span");
+        wrap.innerText = letter;
+        wrap.style.position = "relative";
+        wrap.style.bottom = index+"px";
+        wrap.style.transform = "rotate("+-index+"deg)";
+        letterContainer.appendChild(wrap);
+      });
+
+    }
 
 })();
